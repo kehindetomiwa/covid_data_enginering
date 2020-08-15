@@ -13,7 +13,7 @@ raw_data_bucket = 'covid19_raw_datalake'
 
 default_args = {
     'owner': 'kehinde',
-    'start_date': datetime(2020, 08, 14),
+    'start_date': datetime(2019, 10, 25),
     'depends_on_past': False,
     'retries': 1,
     'retry_delay': 300,

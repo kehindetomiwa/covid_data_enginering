@@ -53,14 +53,17 @@ covid_data_enginering
     |           | create_s3_bucket.py    # CreateS3BucketOperator
     |           | upload_files_to_s3.py  # UploadFilesToS3Operator
     |
-    └───demo                             # Demo files for analytics
-    |   | analysis.ipynb                # Run SQL analytics queries with Athena
+    └───notebook                             # Demo files for analytics
+    |   | Athena_analysis.ipynb                # Run SQL analytics queries with Athena
     |
     └───helper                           # Helper files
     |   | emr_default.json               # EMR cluster config
     |
     └───util                             # utility functions
-        | etl.py                #  data ETL
+        | check_data_quality
+        | county.py
+        | covidus.etl.py
+        | partition_csv.py
    
 ```
 
@@ -71,7 +74,49 @@ covid_data_enginering
 -   AWS account and Redshift cluster
 
 ## Overview
-The idea is to use airflow to run end to end data engineering 
+The idea is to use airflow to run end to end data flow. 
 
 csv files --> S3 buckets --etl--> redshift --> Anthena (for analysis)
 
+step1 partition csv 
+    
+        cd src/util
+        python partition_csv.py
+step2: startup airflow
+
+        docker-compose up
+        
+Visit the path http://localhost:8080 in your browser. Login to Airflow.
+
+Username: user
+
+Password: password
+
+step3: Connect Airflow to AWS
+
+   - Click on the Admin tab and select Connections.
+   - Under Connections, select Create.
+   - On the create connection page, enter the following values:
+   - - Conn Id: Enter aws_credentials.
+   - - Conn Type: Enter Amazon Web Services.
+   - - Login: Enter your Access key ID from the IAM User credentials.
+   - - Password: Enter your Secret access key from the IAM User credentials.
+   - - Extra: Add the default region name. { "region_name": "eu-west-1" }  
+   
+ Step5: start dags
+ 
+ Step6: start Athena analysis    
+ see [instruction](https://aws.amazon.com/blogs/machine-learning/run-sql-queries-from-your-sagemaker-notebooks-using-amazon-athena/)
+ 
+ Start jupyter server
+ Go to http://localhost:8888 and open src/notebook/ notebook.
+ 
+# Addressing Other Scenarios
+1. The data was increased by 100x
+    - increase airflow container with container orchestration
+    -
+2. The pipeline run on  a daily bases by 7am.
+    - we need to change the data schedule from monthly to daily
+3. database needed to be accessed by 100+ people 
+    - Athena serverless functionality helps in handling this 
+ 

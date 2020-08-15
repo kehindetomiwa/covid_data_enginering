@@ -27,7 +27,7 @@
 - female_percentage: Another convenience feature: female / population in percent.
 
 - median_age: Overall median age for the county.
-
+data source [kaggle](https://www.kaggle.com/headsortails/covid19-us-county-jhu-data-demographics?select=us_county.csv))
 ## goal
 Create a data dashboard to analysis covid-19 effection by demography
 
@@ -63,3 +63,15 @@ covid_data_enginering
         | etl.py                #  data ETL
    
 ```
+
+## Requirements
+-   Python3
+-   Docker
+-   Docker-compose (yml by [Bitnami](https://github.com/bitnami/bitnami-docker-airflow))
+-   AWS account and Redshift cluster
+
+## Overview
+The idea is to use airflow to run end to end data engineering 
+
+csv files --> S3 buckets --etl--> redshift --> Anthena (for analysis)
+

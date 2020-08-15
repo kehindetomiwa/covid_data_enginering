@@ -1,3 +1,6 @@
 .idea
-sampledata
+*/covidus
+*/uscounty
+*/*.csv
 .DS_Store
+venv

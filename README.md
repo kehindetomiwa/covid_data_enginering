@@ -1,6 +1,35 @@
 # covid_data_enginering
 
+# data
+## covid_us_county.csv(43.5 MB) COVID-19 dataset
+- fips: County code in numeric format (i.e. no leading zeros). A small number of cases have NA values here, but can still be used for state-wise aggregation. Currently, this only affect the states of Massachusetts and Missouri.
 
+- county: Name of the US county. This is NA for the (aggregated counts of the) territories of American Samoa, Guam, Northern Mariana Islands, Puerto Rico, and Virgin Islands.
+
+- state: Name of US state or territory.
+
+- state_code: Two letter abbreviation of US state (e.g. "CA" for "California"). This feature has NA values for the territories listed above.
+
+- lat and long: coordinates of the county or territory.
+
+- date: Reporting date.
+
+- cases & deaths: Cumulative numbers for cases & deaths.
+
+
+## us_county.csv(348.43 KB) Demographic dataset 
+- fips, county, state, state_code: same as above. The county names are slightly different, but mostly the difference is that this dataset has the word "County" added. I recommend to join on fips.
+
+- male & female: Population numbers for male and female.
+
+- population: Total population for the county. Provided as convenience feature; is always the sum of male + female.
+
+- female_percentage: Another convenience feature: female / population in percent.
+
+- median_age: Overall median age for the county.
+
+## goal
+Create a data dashboard to analysis covid-19 effection by demography
 
 # Project structure
 ```
